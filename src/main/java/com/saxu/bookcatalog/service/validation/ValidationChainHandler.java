@@ -11,9 +11,9 @@ import java.util.List;
 public class ValidationChainHandler {
 
     @Autowired
-    private List<AbstractValidator> validators;
+    public List<AbstractValidator> validators;
 
-    private AbstractValidator headValidator;
+    public AbstractValidator headValidator;
 
 
     @PostConstruct

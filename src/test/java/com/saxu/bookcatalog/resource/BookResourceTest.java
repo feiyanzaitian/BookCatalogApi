@@ -30,7 +30,7 @@ class BookResourceTest {
         Book book = Book.builder().title("Title").author("Author").isbn("12345").build();
         when(bookManagerComponentFactory.getHandler(MessageOperationEnum.CREATE_BOOK).handler(any())).thenReturn(book);
 
-        mockMvc.perform(post("/api/books")
+        mockMvc.perform(post("/book/book/api/books")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"title\":\"Title\",\"author\":\"Author\",\"isbn\":\"12345\"}"))
                 .andExpect(status().isOk());
@@ -41,7 +41,7 @@ class BookResourceTest {
         Book book = Book.builder().id(1L).title("Title").author("Author").isbn("12345").build();
         when(bookManagerComponentFactory.getHandler(MessageOperationEnum.GET_BOOK_BY_ID).handler(1L)).thenReturn(book);
 
-        mockMvc.perform(get("/api/books/1")
+        mockMvc.perform(get("/book/api/books/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title", is("Title")))
@@ -53,7 +53,7 @@ class BookResourceTest {
         Book updatedBook = Book.builder().id(1L).title("UpdatedTitle").author("UpdatedAuthor").isbn("12345").build();
         when(bookManagerComponentFactory.getHandler(MessageOperationEnum.UPDATE_BOOK).handler(any(Book.class))).thenReturn(updatedBook);
 
-        mockMvc.perform(put("/api/books/1")
+        mockMvc.perform(put("/book/api/books/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"title\":\"UpdatedTitle\",\"author\":\"UpdatedAuthor\",\"isbn\":\"12345\"}"))
                 .andExpect(status().isOk())
@@ -65,7 +65,7 @@ class BookResourceTest {
     void testDeleteBook() throws Exception {
         when(bookManagerComponentFactory.getHandler(MessageOperationEnum.DELETE_BOOK).handler(1L)).thenReturn(true);
 
-        mockMvc.perform(delete("/api/books/1")
+        mockMvc.perform(delete("/book/api/books/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }

@@ -25,9 +25,11 @@ public class TitleValidator extends AbstractValidator {
             throw new CommonException(ErrorCode.TITLE_FIELD_TOO_LONG);
         }
 
-        Book existingBook = bookRepository.findByTitle(book.getTitle());
-        if (existingBook != null) {
-            throw new CommonException(ErrorCode.BOOK_TITLE_EXISTS);
+        if (book.getId() == null) {
+            Book existingBook = bookRepository.findByTitle(book.getTitle());
+            if (existingBook != null) {
+                throw new CommonException(ErrorCode.BOOK_TITLE_EXISTS);
+            }
         }
 
         doNextValidator(book);

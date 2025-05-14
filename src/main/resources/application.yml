@@ -1,6 +1,9 @@
 spring:
   application:
     name: BookCatalogManage
+  mvc:
+    servlet:
+      path: /book
 
   datasource:
     url: jdbc:mysql://localhost:3306/demo

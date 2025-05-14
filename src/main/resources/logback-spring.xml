@@ -1,0 +1,22 @@
+<configuration>
+    <!-- 控制台输出 appender -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - [traceId:%X{traceId}] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 异步包装器 -->
+    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="STDOUT"/> <!-- 指定要异步化的 appender -->
+        <!-- 可选：设置队列大小，默认 256 -->
+        <queueSize>512</queueSize>
+        <!-- 可选：丢弃级别较低的日志（如 TRACE、DEBUG）以节省资源 -->
+        <discardingThreshold>0</discardingThreshold>
+    </appender>
+
+    <!-- 使用异步 appender -->
+    <root level="info">
+        <appender-ref ref="ASYNC"/>
+    </root>
+</configuration>
